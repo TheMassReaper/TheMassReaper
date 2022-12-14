@@ -1,0 +1,36 @@
+--globals
+getgenv().autoclick = false
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Reaper", "Ocean")
+
+--code
+function opClick()
+    while autoclick == true do task.wait()
+        game:GetService("ReplicatedStorage").RemoteEvents.TargetClick:FireServer()
+    end
+end
+
+
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+
+
+    MainSection:NewToggle("OP Click", "Best Click", function(bool)
+        autoclick = bool 
+        if bool then
+            opClick()
+        end
+    end)
+
+    MainSection:NewToggle("Free Boost", "Gives you free boosts", function(state)
+       game:GetService("ReplicatedStorage").RemoteEvents.StarterBoosts:FireServer()
+   end)
+
+    MainSection:NewToggle("Rebirth", "Fast Rebirths", function()
+     game:GetService("ReplicatedStorage").RemoteEvents.Rebirth:FireServer(unpack(args))
+end)
+
+    MainSection:NewLabel("Eggs", "Open Eggs ", function()
+    game:GetService("ReplicatedStorage").RemoteEvents.EggOpened:FireServer()
+end)
